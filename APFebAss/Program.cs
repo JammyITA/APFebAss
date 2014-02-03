@@ -53,7 +53,6 @@ namespace APFebAss
                                 }
                                 catch (Exception e)
                                 {
-                                    
                                     Console.WriteLine("Error on input file: "+ e.Message);
                                     argErr = true;
                                 }
@@ -96,13 +95,41 @@ namespace APFebAss
             tokenizer.setInput(input);
 
             Parser parser = new Parser(tokenizer);
+            Console.WriteLine("Input file parsed successfully.");
             Node root = parser.parse();
 
 
             if (flagInterpret)
             {
                 Console.WriteLine("Evaluating:\n\t" + input);
-                Console.WriteLine("Result: \t" + root.eval().ToString());
+                try
+                {
+                    Console.WriteLine("Result: \t" + root.eval().ToString());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    Environment.Exit(1);
+                }
+            }
+
+            if (flagCompile)
+            {
+                Console.WriteLine("Compiling:\n\t" + input);
+                try
+                {
+                    root.eval().ToString();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Compilation failed.\n" + e.Message);
+                    Environment.Exit(1);
+                }
+               
+                
+                string path = Directory.GetCurrentDirectory();
+                string fileName = Path.Combine(path, "result.c");
+
             }
             
             ////tokenizer test

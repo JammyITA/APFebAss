@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Env.cs" />
+    <Compile Include="MyExceptions.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Program.cs" />

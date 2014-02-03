@@ -34,9 +34,8 @@ namespace APFebAss
                     return  (bool)e.table[t];
             }
 
-            //Console.WriteLine("Error: bind for " + t.ToString() + " not found");
             dump("Error: bind for " + t.ToString() + " not found");
-            return false;
+            throw new BindNotFoundException("Error: bind for " + t.ToString() + " not found");
         }
 
         public void dump(String msg)
