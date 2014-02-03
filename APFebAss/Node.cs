@@ -12,6 +12,12 @@ namespace APFebAss
         public Token token;
         public Env env;
 
+        public Node(Token t, Env e = null)
+        {
+            this.token = t;
+            this.env = e;
+        }
+        
         public virtual bool eval()
         {
             if (token.Type == TokenType.BOOL)
@@ -22,11 +28,12 @@ namespace APFebAss
             return false;
         }
 
-        public Node(Token t, Env e = null)
+        public virtual void compile(StringBuilder c)
         {
-            this.token = t;
-            this.env = e;
+             if (token.Type == TokenType.BOOL)
+                 c.Append(((WordToken)token).Lexeme);
         }
+        
     }
 
     class LetNode : Node
@@ -47,6 +54,14 @@ namespace APFebAss
         public override bool eval()
         {
             return body.eval();
+        }
+
+        public override void compile(StringBuilder c)
+        {
+            c.AppendLine("{");
+            c.AppendLine("bool " + ((WordToken)ide.token).Lexeme + " = " + definition.eval().ToString() + ";");
+            body.compile(c);
+            c.AppendLine("}");
         }
     }
 
@@ -81,6 +96,15 @@ namespace APFebAss
                     return false;
             }
             return true;
+        }
+
+        public override void compile(StringBuilder c)
+        {
+            c.Append("result = result ");
+            foreach (Node e in nodes)
+                c.Append("&& " + e.eval().ToString());
+
+            c.Append(";\n");
         }
 
         public void addExpression(Node e)

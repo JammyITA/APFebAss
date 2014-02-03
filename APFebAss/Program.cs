@@ -108,7 +108,7 @@ namespace APFebAss
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine("Error evaluating input file. Evaluation interrupted.\n\t" + e.Message);
                     Environment.Exit(1);
                 }
             }
@@ -118,7 +118,7 @@ namespace APFebAss
                 Console.WriteLine("Compiling:\n\t" + input);
                 try
                 {
-                    root.eval().ToString();
+                    root.eval();
                 }
                 catch (Exception e)
                 {
@@ -130,6 +130,35 @@ namespace APFebAss
                 string path = Directory.GetCurrentDirectory();
                 string fileName = Path.Combine(path, "result.c");
 
+                StringBuilder compiledCode = new StringBuilder();
+
+                compiledCode.AppendLine("#include <stdlib.h>");
+                compiledCode.AppendLine("typedef int bool;");
+                compiledCode.AppendLine("#define True 1");
+                compiledCode.AppendLine("#define False 0");
+                compiledCode.AppendLine("int main(){");
+
+                compiledCode.AppendLine("bool result = True;");
+                compiledCode.AppendLine("char input[] = \"" + input + "\";");
+
+                root.compile(compiledCode);
+
+                compiledCode.AppendLine("\tprintf(\"Evaluating:\\n\t %s \\nResult: %s\\t\", input, result ? \"True\" : \"False\");");
+                compiledCode.AppendLine("\treturn 0;");
+                compiledCode.AppendLine("}");
+
+                Console.WriteLine(compiledCode);
+                try
+                {
+                    System.IO.File.WriteAllText(fileName, compiledCode.ToString());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error writing \"result.c\"\n\r" + e.Message);
+                    Environment.Exit(1);
+                }
+
+                Console.WriteLine("Compilation successful.");
             }
             
             ////tokenizer test

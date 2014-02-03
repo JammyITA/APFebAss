@@ -6,12 +6,18 @@ typedef int bool;
 
 int main(){
 	bool a = true;
+
+	bool result = true;
 	char input[] = "Let a = true";
 
 
-	bool result = a;
+	{
+		bool c = false;
 
-	printf("Evaluating:\n\t %s \n Result: %s\t", input, result ? "true" : "false");
+		result = result && a && c;
+	}
+
+	printf("Evaluating:\n\t %s \nResult: %s\t", input, result ? "true" : "false");
 
 	return 0;
 }
