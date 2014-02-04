@@ -17,15 +17,15 @@ namespace APFebAss
             //set { type = value; }
         }
 
-       
+
         public Token(TokenType type)
         {
             this.type = type;
-            
+
         }
 
 
-        public static Token 
+        public static Token
             openb = new Token(TokenType.OPENB),
             closeb = new Token(TokenType.CLOSEB),
             comma = new Token(TokenType.COMMA),
@@ -94,6 +94,6 @@ namespace APFebAss
             tt = new WordToken(TokenType.BOOL, "true"),
             ff = new WordToken(TokenType.BOOL, "false");
 
-     }
+    }
 
 }

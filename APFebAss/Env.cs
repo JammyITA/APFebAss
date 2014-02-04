@@ -12,7 +12,7 @@ namespace APFebAss
         Hashtable table;
         Env prev;
 
-       
+
         public Env(Env p = null)
         {
             table = new Hashtable();
@@ -30,8 +30,8 @@ namespace APFebAss
             //dump("Searching " + t.ToString());
             for (Env e = this; e != null; e = e.prev)
             {
-                if(e.table.Contains(t))
-                    return  (bool)e.table[t];
+                if (e.table.Contains(t))
+                    return (bool)e.table[t];
             }
 
             dump("Error: bind for " + t.ToString() + " not found");
@@ -40,8 +40,8 @@ namespace APFebAss
 
         public void dump(String msg)
         {
-            Console.WriteLine("**** "+msg+". Dumping enviroment ****");
-            
+            Console.WriteLine("**** " + msg + ". Dumping enviroment ****");
+
             //Console.WriteLine(prev == null ? "No prev env" : "prev env present");
             for (Env e = this; e != null; e = e.prev)
             {

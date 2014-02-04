@@ -9,7 +9,7 @@ namespace APFebAss
     class Parser
     {
         Token currToken;
-       
+
         Tokenizer tokenizer;
         Env top = null;
 
@@ -25,7 +25,7 @@ namespace APFebAss
         {
             Console.WriteLine("\nParser>> " + error);
             Console.WriteLine("\t" + tokenizer.Input);
-            
+
             //int i = 0;
             string indicator = "^".PadLeft(tokenizer.Position);
             //while (i++ < tokenizer.Position() - 1)
@@ -65,11 +65,11 @@ namespace APFebAss
         {
             switch (currToken.Type)
             {
-                
+
                 case TokenType.IDE:
                     return ide();
 
-               
+
                 case TokenType.LET:
 
                     Env savedEnv = top;
@@ -84,7 +84,7 @@ namespace APFebAss
                     match(TokenType.IN);
                     Node body = expr();
 
-                    
+
                     LetNode let = new LetNode(letToken, id, definition, body, top);
 
                     top = savedEnv;
@@ -101,7 +101,7 @@ namespace APFebAss
                     {
                         and.addExpression(expr());
 
-                        if(currToken.Type != TokenType.CLOSEB)
+                        if (currToken.Type != TokenType.CLOSEB)
                             match(TokenType.COMMA);
                     }
                     match(TokenType.CLOSEB);
@@ -109,7 +109,7 @@ namespace APFebAss
 
                 case TokenType.BOOL:
                     return new Node(match(currToken.Type));
-                
+
                 default:
                     Error("Error: invalid token: " + currToken.Type.ToString());
                     return null;

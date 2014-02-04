@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compiler.cs" />
     <Compile Include="Env.cs" />
     <Compile Include="MyExceptions.cs" />
     <Compile Include="Node.cs" />

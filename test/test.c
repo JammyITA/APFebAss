@@ -12,7 +12,8 @@ int main(){
 
 
 	{
-		bool c = false;
+        bool a = false;		
+        bool c = true;
 
 		result = result && a && c;
 	}

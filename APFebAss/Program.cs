@@ -115,42 +115,17 @@ namespace APFebAss
 
             if (flagCompile)
             {
-                Console.WriteLine("Compiling:\n\t" + input);
-                try
-                {
-                    root.eval();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Compilation failed.\n" + e.Message);
-                    Environment.Exit(1);
-                }
-               
-                
+                         
                 string path = Directory.GetCurrentDirectory();
                 string fileName = Path.Combine(path, "result.c");
 
-                StringBuilder compiledCode = new StringBuilder();
+                Compiler compiler = new Compiler(input, root);
 
-                compiledCode.AppendLine("#include <stdlib.h>");
-                compiledCode.AppendLine("typedef int bool;");
-                compiledCode.AppendLine("#define True 1");
-                compiledCode.AppendLine("#define False 0");
-                compiledCode.AppendLine("int main(){");
+                string compiledCode = compiler.compile();
 
-                compiledCode.AppendLine("bool result = True;");
-                compiledCode.AppendLine("char input[] = \"" + input + "\";");
-
-                root.compile(compiledCode);
-
-                compiledCode.AppendLine("\tprintf(\"Evaluating:\\n\t %s \\nResult: %s\\t\", input, result ? \"True\" : \"False\");");
-                compiledCode.AppendLine("\treturn 0;");
-                compiledCode.AppendLine("}");
-
-                Console.WriteLine(compiledCode);
                 try
                 {
-                    System.IO.File.WriteAllText(fileName, compiledCode.ToString());
+                    System.IO.File.WriteAllText(fileName, compiledCode);
                 }
                 catch (Exception e)
                 {
@@ -172,8 +147,8 @@ namespace APFebAss
 
 
             // Keep the console window open in debug mode.
-            Console.WriteLine("Press any key to exit.");
-            System.Console.ReadKey();
+            //Console.WriteLine("Press any key to exit.");
+            //System.Console.ReadKey();
         }
     }
 }

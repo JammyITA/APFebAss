@@ -7,35 +7,6 @@ using System.Threading.Tasks;
 
 namespace APFebAss
 {
-   
-    /*
-    class Token
-    {
-        TokenType type;
-        public TokenType Type
-        {
-            get { return type; }
-            //set { type = value; }
-        }
-
-        string value;
-        public string Value
-        {
-            get { return this.value; }
-            //set { this.value = value; }
-        }
-
-        public Token(TokenType type, string value)
-        {
-            this.type = type;
-            this.value = value;
-        }
-    }
-    */
-
-
-
-
 
     class Tokenizer
     {
@@ -87,7 +58,7 @@ namespace APFebAss
             Console.WriteLine("\nTokenizer>>\t" + error);
             Console.WriteLine("\t" + input);
 
-            string indicator = "^".PadLeft(pos+1);
+            string indicator = "^".PadLeft(pos + 1);
             Console.WriteLine("\t" + indicator + "\n");
 
             Console.WriteLine("\n\nPress any key to exit.");
@@ -114,16 +85,16 @@ namespace APFebAss
                 string tk = input.Substring(startPos, pos - startPos);
 
                 WordToken w = (WordToken)words[tk];
-                if( w != null) 
+                if (w != null)
                     return w;
-                else 
+                else
                 {
                     WordToken t = new WordToken(TokenType.IDE, tk);
                     words.Add(tk, t);
                     return t;
                 }
 
-                
+
             }
             else switch (input[pos])
                 {
