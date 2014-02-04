@@ -33,20 +33,29 @@ namespace APFebAss
             return false;
         }
 
-        public virtual void compile(StringBuilder c)
+        public virtual void compile(StringBuilder c, bool lvalue = true)
         {
             if (token.Type == TokenType.BOOL)
-                c.Append(((WordToken)token).Lexeme == "true" ? "True" : "False");
+            {
+                if (lvalue)
+                {
+                    c.Append("result = result && ");
+                    c.Append(((WordToken)token).Lexeme == "true" ? "True" : "False");
+                    c.AppendLine(";");
+                }
+                else
+                    c.Append(((WordToken)token).Lexeme == "true" ? "True" : "False");
+            }   
         }
-
     }
+
+
 
     class LetNode : Node
     {
         IdeNode ide;
         Node definition;
         Node body;
-
 
         public LetNode(Token t, IdeNode ide, Node definition, Node body, Env e)
             : base(t, e)
@@ -61,23 +70,24 @@ namespace APFebAss
             return body.eval();
         }
 
-        public override void compile(StringBuilder c)
+        public override void compile(StringBuilder c, bool lvalue = true)
         {
+            if (lvalue)
+            {
+                c.AppendLine("{");
+                c.Append("bool " + ((WordToken)ide.Token).Lexeme + " = ");
+                definition.compile(c, false);
+                c.AppendLine(";");
 
-            c.AppendLine("bool " + ((WordToken)ide.Token).Lexeme + " = " + definition.eval().ToString() + ";");
-            c.AppendLine("{");
-
-            if (body.GetType() != typeof(LetNode))
-                c.Append("result = result && ");
-
-            body.compile(c);
-
-            if (body.GetType() != typeof(LetNode))
-                c.Append(";\n");
-
-            c.AppendLine("}");
+                body.compile(c);
+                c.AppendLine("}");
+            }
+            else
+                c.Append(definition.eval().ToString());
         }
     }
+
+
 
     class IdeNode : Node
     {
@@ -91,11 +101,21 @@ namespace APFebAss
             return Env.get(Token);
         }
 
-        public override void compile(StringBuilder c)
+        public override void compile(StringBuilder c, bool lvalue = true)
         {
-            c.Append(((WordToken)Token).Lexeme);
+            if (lvalue)
+            {
+                c.Append("result = result && ");
+                c.Append(((WordToken)Token).Lexeme);
+                c.AppendLine(";");
+            }
+            else
+                c.Append(((WordToken)Token).Lexeme);
+            
         }
     }
+
+
 
     class AndNode : Node
     {
@@ -117,28 +137,17 @@ namespace APFebAss
             return true;
         }
 
-        
-        //This code is a little tricky because I want to keep the structure of the imput file.
-        //For achieve this result I created this code incrementally, starting with a simple expression.
-        public override void compile(StringBuilder c)
+        public override void compile(StringBuilder c, bool lvalue = true)
         {
-            
-            c.Append("result ");
-            foreach (Node e in nodes)
+            if (lvalue)
             {
-                
-                if (e.GetType() == typeof(LetNode))
+                foreach (Node n in nodes)
                 {
-                    c.Append(";\n");
-                    e.compile(c);
-                    c.Append("result = result");
-                }
-                else
-                {
-                    c.Append(" && ");
-                    e.compile(c);
+                    n.compile(c);
                 }
             }
+            else
+                c.Append(this.eval().ToString());
         }
 
         public void addExpression(Node e)

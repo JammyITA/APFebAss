@@ -42,7 +42,6 @@ namespace APFebAss
         {
             Console.WriteLine("**** " + msg + ". Dumping enviroment ****");
 
-            //Console.WriteLine(prev == null ? "No prev env" : "prev env present");
             for (Env e = this; e != null; e = e.prev)
             {
                 Console.WriteLine("___________");
