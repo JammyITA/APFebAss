@@ -73,7 +73,7 @@ namespace APFebAss
                 }
             }
 
-            //I check here so I can listen all invalid flag on the switch
+            //I check here so I can list all invalid flag on the switch
             if (argErr)
             {
                 Console.WriteLine("\n\nAllowed command-line flag:");
