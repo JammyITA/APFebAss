@@ -9,9 +9,14 @@ namespace APFebAss
 {
     class Node
     {
-        public Token token;
-        public Env env;
+        Token token;
+        public Token Token
+        { get { return this.token; } }
 
+        Env env;
+        public Env Env
+        { get { return this.env; } }
+        
         public Node(Token t, Env e = null)
         {
             this.token = t;
@@ -59,7 +64,7 @@ namespace APFebAss
         public override void compile(StringBuilder c)
         {
 
-            c.AppendLine("bool " + ((WordToken)ide.token).Lexeme + " = " + definition.eval().ToString() + ";");
+            c.AppendLine("bool " + ((WordToken)ide.Token).Lexeme + " = " + definition.eval().ToString() + ";");
             c.AppendLine("{");
 
             if (body.GetType() != typeof(LetNode))
@@ -83,12 +88,12 @@ namespace APFebAss
 
         public override bool eval()
         {
-            return base.env.get(base.token);
+            return Env.get(Token);
         }
 
         public override void compile(StringBuilder c)
         {
-            c.Append(((WordToken)token).Lexeme);
+            c.Append(((WordToken)Token).Lexeme);
         }
     }
 

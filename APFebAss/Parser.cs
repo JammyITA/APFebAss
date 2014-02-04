@@ -79,7 +79,7 @@ namespace APFebAss
                     IdeNode id = ide();
                     match(TokenType.EQUAL);
                     Node definition = expr();
-                    top.Put(id.token, definition.eval());
+                    top.Put(id.Token, definition.eval());
 
                     match(TokenType.IN);
                     Node body = expr();

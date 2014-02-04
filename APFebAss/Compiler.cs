@@ -53,7 +53,7 @@ namespace APFebAss
             compiledCode.AppendLine("\treturn 0;");
             compiledCode.AppendLine("}");
 
-            Console.WriteLine("\n\n****************\n" + compiledCode + "\n****************\n\n");
+            //Console.WriteLine("\n\n****************\n" + compiledCode + "\n****************\n\n");
 
 
             //return compiledCode.ToString();
