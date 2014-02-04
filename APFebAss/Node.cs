@@ -113,39 +113,15 @@ namespace APFebAss
         }
 
         
-        //The code is a little complicated because I want to keep the structure of the imput file.
-        //For achieve this result I created this code incrementally, starting with a simple expression
-        
+        //This code is a little tricky because I want to keep the structure of the imput file.
+        //For achieve this result I created this code incrementally, starting with a simple expression.
         public override void compile(StringBuilder c)
         {
             
-            ////Because the c's compiler of Visual Studio want all the declaration at the start
-            ////of the block I nedd two pass, first for declaration then for the rest
-            //foreach (Node e in nodes)
-            //{
-            //    if (e.GetType() == typeof(LetNode))
-            //        e.compile(c);
-            //}
-
-            //c.Append("result ");
-            //foreach (Node e in nodes)
-            //{
-            //    if (e.GetType() != typeof(LetNode))
-            //    {
-            //        c.Append(" && ");// + e.eval().ToString());
-            //        e.compile(c);
-            //    }
-            //}
-
-
             c.Append("result ");
             foreach (Node e in nodes)
             {
-                //c.Append(" && ");// + e.eval().ToString());
-                ////if(e.GetType() == typeof(LetNode))
-                ////    c.Append(e.eval());
-                ////else
-                //    e.compile(c);
+                
                 if (e.GetType() == typeof(LetNode))
                 {
                     c.Append(";\n");
@@ -154,7 +130,7 @@ namespace APFebAss
                 }
                 else
                 {
-                    c.Append(" && ");// + e.eval().ToString());
+                    c.Append(" && ");
                     e.compile(c);
                 }
             }

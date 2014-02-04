@@ -35,6 +35,9 @@ namespace APFebAss
 
             StringBuilder compiledCode = new StringBuilder();
 
+            compiledCode.AppendLine("//Warning: this code is incopatible with ISO C90 standard");
+            compiledCode.AppendLine("//tested with gcc 4.0.4");
+            compiledCode.AppendLine("#include <stdio.h>");
             compiledCode.AppendLine("#include <stdlib.h>");
             compiledCode.AppendLine("typedef int bool;");
             compiledCode.AppendLine("#define True 1");
@@ -61,7 +64,6 @@ namespace APFebAss
         //With this function I want to delete the unnecessary lines with only  a "result" variable, generated
         //by a nested "and" with some "let" inside. Considered his cost, I decide to rely on the optimization
         //performed by c's compiler and not use this function.
-
         string deleteResultLines(String s)
         {
             return Regex.Replace(s, "result = result[ && result]*[ ]*;", "");

@@ -33,41 +33,7 @@ namespace APFebAss
             eof = new Token(TokenType.EOF);
     }
 
-    //class BoolToken : Token
-    //{
-    //    bool value;
-    //    public bool Value
-    //    {
-    //        get { return this.value; }
-    //        //set { this.value = value; }
-    //    }
-
-    //    public BoolToken(bool value)
-    //        : base(TokenType.BOOL)
-    //    {
-    //        this.value = value;
-    //    }
-
-    //    public static BoolToken
-    //        tt = new BoolToken(true),
-    //        ff = new BoolToken(false);
-    //}
-
-    //class IdeToken : Token 
-    //{
-    //    string value;
-    //    public string Value
-    //    {
-    //        get { return this.value; }
-    //    }
-
-    //    public IdeToken(string value)
-    //        : base(TokenType.IDE)
-    //    {
-    //        this.value = value;
-    //    }
-    //}
-
+    
     class WordToken : Token
     {
         string lexeme;

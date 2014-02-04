@@ -87,9 +87,6 @@ namespace APFebAss
             }
 
             #endregion
-
-
-            //string input = "let a = true in let b = true in and (a, b, true, let c = true in true)";
             
             Tokenizer tokenizer = new Tokenizer();
             tokenizer.setInput(input);
@@ -136,16 +133,6 @@ namespace APFebAss
                 Console.WriteLine("Compilation successful.");
             }
             
-            ////tokenizer test
-            //Token token = tokenizer.nextToken();
-            //while (token.Type != TokenType.EOF)
-            //{
-            //    Console.WriteLine(token.Type.ToString());
-            //    token = tokenizer.nextToken();
-            //}
-
-
-
             // Keep the console window open in debug mode.
             //Console.WriteLine("Press any key to exit.");
             //System.Console.ReadKey();
